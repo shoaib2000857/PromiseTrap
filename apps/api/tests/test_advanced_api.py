@@ -13,7 +13,7 @@ def sample(client,name):
 
 @pytest.mark.parametrize('name,count,statuses',[
     ('internship',3,{'contradiction'}),('scholarship',1,{'contradiction'}),
-    ('optional',0,set()),('deadline',1,{'changed_term'})])
+    ('optional',0,set()),('deadline',3,{'changed_term'})])
 def test_four_authored_scenarios(client,name,count,statuses):
     c=sample(client,name)
     assert len(c['findings'])==count
@@ -154,3 +154,94 @@ def test_cache_reuse_and_partial_extraction(client,monkeypatch):
     assert current['status']=='partial' and current['claims']
     assert 'provider details' not in current['error_message']
     assert current['sources'][1]['extraction_status']=='failed'
+
+
+@pytest.mark.parametrize('name', ['internship','scholarship','optional','deadline','subscription','placement','event','deposit','software','job','price','consistent'])
+def test_gallery_cases_expected_rules_originals_and_downloads(client, name):
+    from app.advanced_samples import DATASETS, EXPECTED
+    c=sample(client,name)
+    assert len(c['sources']) == len(DATASETS[name]) >= 2
+    assert len(c['claims']) == sum(len(d['claims']) for d in DATASETS[name])
+    assert sorted(f['status'] for f in c['findings']) == sorted(EXPECTED[name])
+    assert all(f['evidence_verified'] for f in c['findings'])
+    assert c['claims_provenance']=='authored_fixture' and c['demo_scenario']==name
+    assert len(c['analysis_stages'])==3
+    for source in c['sources']:
+        data=client.get(P+'/sources/'+source['id']+'/content').content
+        assert hashlib.sha256(data).hexdigest()==source['sha256']
+        assert b'FICTIONAL SAMPLE' in data
+        assert client.get(source['demo_image_url']).content.startswith(b'\x89PNG')
+    for fmt in ('json','markdown','pdf'):
+        report=client.get(f'{P}/investigations/{c["id"]}/report?format={fmt}')
+        assert report.status_code==200 and report.content
+        if fmt=='pdf': assert report.content.startswith(b'%PDF')
+        if fmt=='json': assert report.json()['claims_provenance']=='authored_fixture'
+        if fmt=='markdown': assert c['title'] in report.text
+
+
+def test_gallery_catalog_is_readonly_and_images_are_bounded(client):
+    before=client.get(P+'/investigations').json()
+    catalog=client.get(P+'/examples/gallery').json()
+    assert len(catalog)==12 and len({c['id'] for c in catalog})==12
+    assert all(c['fictional'] and c['image_available'] for c in catalog)
+    assert catalog[0]['id']=='internship'
+    assert {c['id'] for c in catalog if c.get('control')}=={'optional','consistent'}
+    assert client.get(P+'/investigations').json()==before
+    assert client.get(P+'/examples/gallery/internship/images/99').status_code==404
+    assert client.get(P+'/examples/gallery/missing/images/0').status_code==404
+    assert client.post(P+'/examples/advanced/missing').status_code==404
+
+
+@pytest.mark.parametrize('name', ['internship','scholarship','optional','deadline','subscription','placement','event','deposit','software','job','price','consistent'])
+def test_gallery_live_mode_has_only_original_images(client, name, monkeypatch):
+    monkeypatch.delenv('GEMINI_API_KEY',raising=False)
+    c=client.post(P+'/examples/advanced/'+name+'?images=true').json()
+    assert c['status']=='created' and not c['claims'] and not c['findings']
+    assert c['claims_provenance']=='none'
+    for source in c['sources']:
+        assert source['mime_type']=='image/png' and not source['extracted_text']
+        assert client.get(P+'/sources/'+source['id']+'/content').content.startswith(b'\x89PNG')
+    response=client.post(f'{P}/investigations/{c["id"]}/analyze',json={'provider':'gemma'})
+    assert response.status_code==503 and 'GEMINI_API_KEY' in response.json()['detail']
+    current=client.get(f'{P}/investigations/{c["id"]}').json()
+    assert current['status']=='created' and not current['claims']
+
+
+def test_sandbox_financial_changes_are_real_and_originals_untouched(client):
+    c=sample(client,'internship');f=next(f for f in c['findings'] if f['category']=='financial')
+    a,b=[copy.deepcopy(next(x for x in c['claims'] if x['id']==id)) for id in (f['claim_a_id'],f['claim_b_id'])]
+    b['value']='700'
+    result=client.post(f'{P}/investigations/{c["id"]}/simulate',json={'a':a,'b':b}).json()
+    assert result['finding']['status']=='contradiction'
+    assert result['financial']['currencies']['INR']['mandatory_upfront_cost']=='700'
+    b.update(subject='printed certificate',modality='optional',conditions=[])
+    b['scope'].update(purpose='printed certificate',application_stage='completion')
+    result=client.post(f'{P}/investigations/{c["id"]}/simulate',json={'a':a,'b':b}).json()
+    assert result['finding']['status']=='insufficient_evidence'
+    assert result['financial']['currencies']['INR']['mandatory_upfront_cost']=='0'
+    assert result['financial']['currencies']['INR']['optional_fees']=='700'
+    assert client.get(f'{P}/investigations/{c["id"]}').json()['claims']==c['claims']
+
+
+def test_averages_units_and_refund_scopes_do_not_create_false_financial_conflicts(client):
+    placement=sample(client,'placement')
+    assert not any(f['status']=='contradiction' and f['category']=='compensation' for f in placement['findings'])
+    deposit=sample(client,'deposit')
+    assert not any(f['category']=='financial' for f in deposit['findings'])
+    assert deposit['financial']['currencies']['INR']['deposits']=='5000'
+    price=sample(client,'price')
+    assert price['financial']['currencies']['INR']['optional_fees']=='50'
+    software=sample(client,'software')
+    claim_ids={c['id'] for c in software['claims'] if c['subject']=='plan price'}
+    assert all(f['status']!='contradiction' for f in software['findings'] if f['claim_a_id'] in claim_ids)
+
+
+def test_guarantee_preset_changes_real_sandbox_rule_without_changing_original(client):
+    c=sample(client,'internship');f=next(f for f in c['findings'] if f['category']=='compensation')
+    a,b=[copy.deepcopy(next(x for x in c['claims'] if x['id']==id)) for id in (f['claim_a_id'],f['claim_b_id'])]
+    a.update(modality='conditional',conditions=b['conditions'],value_kind=b['value_kind'])
+    result=client.post(f'{P}/investigations/{c["id"]}/simulate',json={'a':a,'b':b}).json()
+    assert result['finding']['status']=='insufficient_evidence'
+    totals=result['financial']['currencies']['INR']
+    assert not totals['guaranteed_compensation'] and totals['conditional_compensation'][0]['amount']=='20000'
+    assert client.get(f'{P}/investigations/{c["id"]}').json()['claims']==c['claims']

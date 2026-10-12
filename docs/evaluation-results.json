@@ -26,7 +26,7 @@
             {
               "amount": "20000",
               "unit": "month",
-              "claim_id": "a98f2415-05c5-4dc6-86d5-994b481dbfd3",
+              "claim_id": "cf3a0411-50ea-4f06-b3a8-f10e65a709b8",
               "conditions": [
                 "Performance evaluation"
               ]
@@ -36,15 +36,15 @@
             {
               "amount": "20000",
               "unit": "month",
-              "claim_id": "471a3283-8f54-491b-b644-7fbcbfd9d4a3",
+              "claim_id": "35c95ccc-031b-453f-a104-3d477817f965",
               "conditions": []
             }
           ],
           "claim_ids": [
-            "8b913466-7234-400a-9480-1e70b8d666b6",
-            "7f834610-5a1b-4f0e-82f8-b1fa9b2623ab",
-            "471a3283-8f54-491b-b644-7fbcbfd9d4a3",
-            "a98f2415-05c5-4dc6-86d5-994b481dbfd3"
+            "13a05af1-2ff6-4f30-98ba-cc75bcd34fb9",
+            "6d5865ea-cac2-4381-9db1-246ea9e62ed1",
+            "35c95ccc-031b-453f-a104-3d477817f965",
+            "cf3a0411-50ea-4f06-b3a8-f10e65a709b8"
           ]
         }
       },
@@ -70,7 +70,7 @@
           "conditional_compensation": [],
           "potential_compensation": [],
           "claim_ids": [
-            "44802e2c-62e7-4d01-afa9-b6095bf79c9b"
+            "9b504cb2-d83d-4bbd-b8cf-ec0e797494cc"
           ]
         }
       },
@@ -92,8 +92,8 @@
           "conditional_compensation": [],
           "potential_compensation": [],
           "claim_ids": [
-            "a2795dd7-fc71-4148-9fd2-202fb29a6d99",
-            "4adc1157-5f88-45cc-9b47-52238b421759"
+            "92b163c9-b65a-4e65-826a-9304f5dced84",
+            "176f8201-3c3e-49ec-aaba-73ba7ec2cfe2"
           ]
         }
       },
@@ -101,15 +101,305 @@
     },
     {
       "scenario": "deadline",
-      "claims": 2,
+      "claims": 3,
       "expected": [
+        "changed_term",
+        "changed_term",
         "changed_term"
       ],
       "actual": [
+        "changed_term",
+        "changed_term",
         "changed_term"
       ],
       "passed": true,
       "financial": {},
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "subscription",
+      "claims": 7,
+      "expected": [
+        "contradiction",
+        "contradiction",
+        "contradiction"
+      ],
+      "actual": [
+        "contradiction",
+        "contradiction",
+        "contradiction"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "1200",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "77dc1b8a-8295-45ef-bffa-6b1487f5a228"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "placement",
+      "claims": 6,
+      "expected": [
+        "contradiction",
+        "material_qualification"
+      ],
+      "actual": [
+        "contradiction",
+        "material_qualification"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "0",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [
+            {
+              "amount": "600000",
+              "unit": "year",
+              "claim_id": "8be7be51-6080-49a8-80e1-1e0022e8a2eb",
+              "conditions": [
+                "Individual employer offer"
+              ]
+            }
+          ],
+          "potential_compensation": [
+            {
+              "amount": "600000",
+              "unit": "year",
+              "claim_id": "956473c5-af56-41bb-8bd1-35a63f010d0d",
+              "conditions": []
+            }
+          ],
+          "claim_ids": [
+            "956473c5-af56-41bb-8bd1-35a63f010d0d",
+            "8be7be51-6080-49a8-80e1-1e0022e8a2eb"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "event",
+      "claims": 5,
+      "expected": [
+        "contradiction",
+        "contradiction"
+      ],
+      "actual": [
+        "contradiction",
+        "contradiction"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "350",
+          "optional_fees": "0",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "181be89b-7d3a-4e1d-b59b-6112aba6e884",
+            "d1441ffb-1c07-4a7d-b608-014e8f77d3b0"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "deposit",
+      "claims": 4,
+      "expected": [
+        "contradiction"
+      ],
+      "actual": [
+        "contradiction"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "0",
+          "deposits": "5000",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "08fb63c3-64b8-4a85-8293-6f887ef1248e",
+            "d8ba56d5-a1d4-4ae5-b654-e7c4f4e3c519"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "software",
+      "claims": 6,
+      "expected": [
+        "contradiction",
+        "contradiction",
+        "insufficient_evidence"
+      ],
+      "actual": [
+        "contradiction",
+        "contradiction",
+        "insufficient_evidence"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "300",
+          "optional_fees": "0",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "36c5ab7a-70bb-42fd-bf8a-fa92fcb33b56",
+            "d0df19f8-d4a5-4b1d-a70e-01d9321fb150",
+            "240530af-59f4-4a8f-9f36-b3e849efcd3d",
+            "8d4db5a7-5765-40cb-b165-7e6235c97fea"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "job",
+      "claims": 7,
+      "expected": [
+        "contradiction",
+        "contradiction",
+        "contradiction"
+      ],
+      "actual": [
+        "contradiction",
+        "contradiction",
+        "contradiction"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "0",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [
+            {
+              "amount": "50000",
+              "unit": "one_time",
+              "claim_id": "77040538-497b-439e-8868-f4636731db7c",
+              "conditions": [
+                "6 months continuous service"
+              ]
+            }
+          ],
+          "potential_compensation": [
+            {
+              "amount": "60000",
+              "unit": "month",
+              "claim_id": "05b57459-631b-4984-9940-d72af212dd97",
+              "conditions": []
+            },
+            {
+              "amount": "40000",
+              "unit": "month",
+              "claim_id": "95f37ed0-0f63-4c6b-8157-b0234def5017",
+              "conditions": []
+            },
+            {
+              "amount": "50000",
+              "unit": "one_time",
+              "claim_id": "22d44a9c-f35b-45a8-bb70-53aa4196833a",
+              "conditions": []
+            },
+            {
+              "amount": "20000",
+              "unit": "month",
+              "claim_id": "dfc1cc79-a7fd-40bb-a762-71c8e98564ca",
+              "conditions": [
+                "Sales targets"
+              ]
+            }
+          ],
+          "claim_ids": [
+            "05b57459-631b-4984-9940-d72af212dd97",
+            "95f37ed0-0f63-4c6b-8157-b0234def5017",
+            "22d44a9c-f35b-45a8-bb70-53aa4196833a",
+            "77040538-497b-439e-8868-f4636731db7c",
+            "dfc1cc79-a7fd-40bb-a762-71c8e98564ca"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "price",
+      "claims": 4,
+      "expected": [
+        "contradiction"
+      ],
+      "actual": [
+        "contradiction"
+      ],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "50",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "293c4f65-26d4-4651-9d01-20d2208dcf88",
+            "ae4cadcc-200f-43f3-a70e-88cbf811e883",
+            "eeafb605-6760-44fc-8ce9-e74a8a2daada"
+          ]
+        }
+      },
+      "model": "Authored fixture; no model inference"
+    },
+    {
+      "scenario": "consistent",
+      "claims": 9,
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "financial": {
+        "INR": {
+          "mandatory_upfront_cost": "0",
+          "optional_fees": "0",
+          "deposits": "0",
+          "fixed_deductions": "0",
+          "guaranteed_compensation": [],
+          "conditional_compensation": [],
+          "potential_compensation": [],
+          "claim_ids": [
+            "fbb9b1f3-3e0f-4679-8c2e-a138f1084a50",
+            "11d5d24e-e164-443d-a184-59039c003798",
+            "955555b6-fa79-4738-8dea-b43f3bfc1f33"
+          ]
+        }
+      },
       "model": "Authored fixture; no model inference"
     }
   ]

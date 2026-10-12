@@ -5,22 +5,90 @@
       "contradiction",
       "contradiction",
       "contradiction"
-    ]
+    ],
+    "fictional": true
   },
   "scholarship": {
     "claims": 3,
     "expected": [
       "contradiction"
-    ]
+    ],
+    "fictional": true
   },
   "optional": {
     "claims": 2,
-    "expected": []
+    "expected": [],
+    "fictional": true
   },
   "deadline": {
-    "claims": 2,
+    "claims": 3,
     "expected": [
+      "changed_term",
+      "changed_term",
       "changed_term"
-    ]
+    ],
+    "fictional": true
+  },
+  "subscription": {
+    "claims": 7,
+    "expected": [
+      "contradiction",
+      "contradiction",
+      "contradiction"
+    ],
+    "fictional": true
+  },
+  "placement": {
+    "claims": 6,
+    "expected": [
+      "contradiction",
+      "material_qualification"
+    ],
+    "fictional": true
+  },
+  "event": {
+    "claims": 5,
+    "expected": [
+      "contradiction",
+      "contradiction"
+    ],
+    "fictional": true
+  },
+  "deposit": {
+    "claims": 4,
+    "expected": [
+      "contradiction"
+    ],
+    "fictional": true
+  },
+  "software": {
+    "claims": 6,
+    "expected": [
+      "contradiction",
+      "contradiction",
+      "insufficient_evidence"
+    ],
+    "fictional": true
+  },
+  "job": {
+    "claims": 7,
+    "expected": [
+      "contradiction",
+      "contradiction",
+      "contradiction"
+    ],
+    "fictional": true
+  },
+  "price": {
+    "claims": 4,
+    "expected": [
+      "contradiction"
+    ],
+    "fictional": true
+  },
+  "consistent": {
+    "claims": 9,
+    "expected": [],
+    "fictional": true
   }
 }

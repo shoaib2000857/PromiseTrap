@@ -16,7 +16,7 @@ from promisegraph import Claim, Finding, investigate, graph, candidates, verify
 from . import store
 from .gemma import GemmaClient, PROMPT_VERSION
 from .ollama import OllamaClient, installed_models
-from promisegraph.extensions import financial, conditions, personal, receipt, journey, compare_extended
+from promisegraph.extensions import financial, conditions, personal, receipt, journey, compare_extended, structured
 from promisegraph import normalize
 
 app = FastAPI(title='PromiseTrap', version='0.2.0')
@@ -302,6 +302,10 @@ def safe_error(exc):
         return str(exc)
     return f'Analysis failed ({type(exc).__name__}). Check model access, API quota and source validity; retry when resolved.'
 
+def confirmed_stage(case, label):
+    case.setdefault('analysis_stages',[]).append({'label':label,'at':store.now()})
+    store.save(case)
+
 def run_analysis(cid,provider='gemma',model=None):
     case = require(cid)
     previous = {f['id']:f for f in case['findings']}
@@ -312,6 +316,7 @@ def run_analysis(cid,provider='gemma',model=None):
         case['stage'] = 'Verifying '+('local Ollama' if provider=='ollama' else 'Gemma 4')+' access'
         store.save(case)
         client.verify_access()
+        confirmed_stage(case,'Provider access verified')
         claims, errors = [], []
         for index,source in enumerate(case['sources']):
             case['stage'] = f'Extracting source {index+1} of {len(case["sources"])}: {source["filename"]}'
@@ -319,6 +324,7 @@ def run_analysis(cid,provider='gemma',model=None):
             try:
                 if hashlib.sha256((store.ROOT/source['id']).read_bytes()).hexdigest()!=source['sha256']:
                     raise RuntimeError('Stored source bytes differ from their recorded hash. Add a new source before analysis.')
+                confirmed_stage(case,'Source '+str(index+1)+' bytes validated')
                 cache_key=hashlib.sha256(json.dumps([source['id'],source['sha256'],client.model,PROMPT_VERSION,source.get('document_stage'),source.get('effective_at'),source.get('published_at'),source.get('version_group')]).encode()).hexdigest()
                 cached=store.cached(cache_key)
                 extracted=[Claim.model_validate(c) for c in cached] if cached is not None else client.extract_claims(source,images_for(source))
@@ -335,6 +341,7 @@ def run_analysis(cid,provider='gemma',model=None):
                 claims.extend(extracted)
                 source['extraction_status'] = 'completed'
                 source.update(model_identifier=client.model,prompt_version=PROMPT_VERSION,analyzed_at=store.now(),extraction_error=None)
+                confirmed_stage(case,'Source '+str(index+1)+(' claims restored from validated cache' if cached is not None else ' claims extracted and schema validated'))
             except Exception as exc:
                 source.update(model_identifier=client.model,prompt_version=PROMPT_VERSION,analyzed_at=store.now())
                 source['extraction_status'] = 'failed'
@@ -347,6 +354,7 @@ def run_analysis(cid,provider='gemma',model=None):
         store.save(case)
         source_map = {s['id']:s for s in case['sources']}
         claims, findings = investigate(claims, source_map)
+        confirmed_stage(case,'Claims normalized; scope and source evidence compared')
         case['stage'] = 'Reviewing ambiguous pairs with '+('local Ollama' if provider=='ollama' else 'Gemma 4')
         store.save(case)
         by_id = {c.id:c for c in claims}
@@ -367,6 +375,7 @@ def run_analysis(cid,provider='gemma',model=None):
         case['stage'] = 'Completed with some extraction or semantic errors' if errors else 'Investigation complete'
         case['error_message'] = '\n'.join(errors) or None
         case['analysis_completed_at'] = store.now()
+        confirmed_stage(case,'Investigation ready'+(' with recorded errors' if errors else ''))
         case.setdefault('history',[]).append({'at':store.now(),'action':'analysis','model':client.model,'provider':provider})
     except Exception as exc:
         case['status'], case['stage'], case['error_message'] = 'failed','Analysis failed',safe_error(exc)
@@ -380,7 +389,7 @@ def analyze(cid: str, background: BackgroundTasks, body: AnalyzeOptions = Analyz
             raise HTTPException(422, 'Add at least two sources to compare')
         if body.provider=='gemma' and not os.getenv('GEMINI_API_KEY'):
             raise HTTPException(503, 'Gemma is not configured. Set GEMINI_API_KEY in the backend .env and restart.')
-        case.update(status='processing',stage='Queued for '+body.provider,analysis_started_at=store.now(),error_message=None)
+        case.update(status='processing',stage='Queued for '+body.provider,analysis_started_at=store.now(),error_message=None,analysis_stages=[{'label':'Source intake complete','at':store.now()}])
         store.save(case)
     background.add_task(run_analysis,cid,body.provider,body.model)
     return {'analysis_id':case['analysis_started_at'], 'status':'processing'}
@@ -449,7 +458,12 @@ def simulate_pair(cid: str, body: Simulation):
         raise HTTPException(422,'Simulation must reference existing evidence')
     result=compare_extended(a,b,source_map,hypothetical=True)
     result.evidence_verified=False
-    return {'hypothetical':True,'finding':result.model_dump(mode='json'),'method':'Structured fields normalized and rerun through PromiseGraph; no new image inference. Original evidence preserved.'}
+    from promisegraph.advanced.financial import calculate
+    assumptions=[structured(c,source_map,hypothetical=True) for c in (a,b)]
+    for c in assumptions:
+        c.value_verified=True
+        c.evidence_quality='approximate'
+    return {'financial':calculate(assumptions),'hypothetical':True,'finding':result.model_dump(mode='json'),'method':'Structured fields normalized and rerun through PromiseGraph; no new image inference. Original evidence preserved.'}
 
 @app.post(P+'/investigations/{cid}/eligibility')
 def check_profile(cid: str, body: Profile):
@@ -510,27 +524,50 @@ def challenge(cid: str, fid: str, body: AnalyzeOptions=AnalyzeOptions()):
 def evidence_receipt(cid: str):
     return Response(json.dumps(receipt(require(cid)),indent=2),media_type='application/json',headers={'Content-Disposition':'attachment; filename="promisetrap-receipt.json"'})
 
+@app.get(P+'/examples/gallery')
+def sample_gallery():
+    from .advanced_samples import CATALOG, DATASETS, SAMPLES
+    return [{"id": name, **metadata, "source_count": len(DATASETS[name]),
+             "image_available": all((SAMPLES/(item['name']+'.png')).is_file() for item in DATASETS[name]),
+             "preview_url": P+'/examples/gallery/'+name+'/images/0',
+             "fictional": True} for name, metadata in CATALOG.items()]
+
+
+@app.get(P+'/examples/gallery/{scenario}/images/{index}')
+def sample_image(scenario: str, index: int):
+    from .advanced_samples import DATASETS, SAMPLES
+    if scenario not in DATASETS or not 0 <= index < len(DATASETS[scenario]):
+        raise HTTPException(404, 'Unknown fictional document')
+    path = SAMPLES/(DATASETS[scenario][index]['name']+'.png')
+    if not path.is_file():
+        raise HTTPException(404, 'Fictional image asset is not available')
+    return Response(path.read_bytes(), media_type='image/png')
+
+
 @app.post(P+'/examples/advanced/{scenario}',status_code=201)
 def advanced_example(scenario: str, images: bool=False):
-    from .advanced_samples import DATASETS, document, SAMPLES
+    from .advanced_samples import CATALOG, DATASETS, document, SAMPLES
     if scenario not in DATASETS:
         raise HTTPException(404,'Unknown fictional sample')
-    case=create(Create(title='Fictional '+scenario+' investigation',description='Explicit fictional sources. Image mode requires real model analysis; fixtures are authored.'))
-    case.update(is_example=True,example_mode='fictional_images' if images else 'authored_fixture',claims_provenance='none' if images else 'authored_fixture')
+    case=create(Create(title=CATALOG[scenario]['title'],description='Fictional demo. '+CATALOG[scenario]['summary']))
+    case.update(is_example=True,example_mode='fictional_images' if images else 'authored_fixture',claims_provenance='none' if images else 'authored_fixture',demo_scenario=scenario)
     claims=[]
-    for item in DATASETS[scenario]:
+    for index,item in enumerate(DATASETS[scenario]):
         name=item['name']+('.png' if images else '.txt')
         data=(SAMPLES/name).read_bytes() if images else document(item).encode()
-        source=add_source(case,name,'image/png' if images else 'text/plain',data,'' if images else data.decode(),published=item.get('date'),version_group='nova-deadline' if item.get('date') else None,document_stage=item['stage'],effective_at=item.get('date'))
+        source=add_source(case,name,'image/png' if images else 'text/plain',data,'' if images else data.decode(),published=item.get('date'),version_group='nova-'+scenario if item.get('date') else None,document_stage=item['stage'],effective_at=item.get('date'))
         source['extraction_status']='pending' if images else 'authored_fixture'
+        source['demo_image_url']=P+'/examples/gallery/'+scenario+'/images/'+str(index)
         if not images:
             for raw in item['claims']:
                 fields={**raw}
                 fields.setdefault('scope',{'program':'fictional nova 2026','audience':'all registered applicants','purpose':'registration','period':'2026 intake','application_stage':'registration','contractual_condition':'nova 2026 terms','qualifying_event':'registration'})
-                claims.append(Claim(id=str(uuid4()),source_id=source['id'],category={'fee':'financial','certificate':'certification'}.get(fields['category'],fields['category']),subject=fields['subject'],predicate=fields['predicate'],value=fields.get('date_value',fields.get('amount')),currency=fields.get('currency'),unit=fields.get('unit'),modality={'mandatory':'required','unspecified':'asserted'}.get(fields.get('modality','asserted'),fields.get('modality','asserted')),original_text=fields['original_text'],normalized_summary=fields['normalized_statement'],conditions=fields.get('conditions',[]),scope=fields['scope'],value_kind=fields.get('value_kind','unspecified'),financial_role=fields.get('financial_role'),payment_timing=fields.get('payment_timing'),applicable_cost=fields.get('applicable_cost'),criteria=fields.get('criteria',[])))
+                claims.append(Claim(id=str(uuid4()),source_id=source['id'],category={'fee':'financial','certificate':'certification'}.get(fields['category'],fields['category']),subject=fields['subject'],predicate=fields['predicate'],value=fields.get('date_value',fields.get('amount')),currency=fields.get('currency'),unit=fields.get('unit'),modality={'mandatory':'required','unspecified':'asserted'}.get(fields.get('modality','asserted'),fields.get('modality','asserted')),original_text=fields['original_text'],normalized_summary=fields['normalized_statement'],conditions=fields.get('conditions',[]),scope=fields['scope'],value_kind=fields.get('value_kind','unspecified'),financial_role=fields.get('financial_role'),payment_timing=fields.get('payment_timing'),applicable_cost=fields.get('applicable_cost'),criteria=fields.get('criteria',[]),refund_terms='; '.join(fields['refund_terms']) if isinstance(fields.get('refund_terms'),list) else fields.get('refund_terms'),refundable=fields.get('refundable')))
     if not images:
         cs,fs=investigate(claims,{s['id']:s for s in case['sources']})
-        case.update(claims=[c.model_dump(mode='json') for c in cs],findings=[f.model_dump(mode='json') for f in fs],status='completed',stage='Authored fixture compared by PromiseGraph',model_identifier='Authored fixture · PromiseGraph rules',is_example=True)
+        case.update(claims=[c.model_dump(mode='json') for c in cs],findings=[f.model_dump(mode='json') for f in fs],status='completed',stage='Authored fixture compared by PromiseGraph',model_identifier='Authored fixture · PromiseGraph rules',is_example=True,analysis_completed_at=store.now())
+        case.setdefault('history',[]).append({'at':store.now(),'action':'authored_fixture_evaluated'})
+        case['analysis_stages']=[{'label':label,'at':store.now()} for label in ['Fictional source documents preserved','Authored structured claims validated','PromiseGraph scope comparison and evidence verification complete']]
     store.save(case)
     return detail(case['id'])
 
