@@ -2,6 +2,10 @@
 
 **Every promise deserves evidence.**
 
+[Public source repository](https://github.com/shoaib2000857/PromiseTrap) ? [Hosted frontend preview](https://promisetrap.vercel.app)
+
+The hosted site shows the frontend only. Run the Python API and frontend locally for investigations, uploads, and AI analysis.
+
 PromiseTrap investigates differences between advertisements, registration forms, offer letters, and other source documents. Gemma 4 performs multimodal structured extraction; the original **PromiseGraph** package normalizes and compares claims, verifies quotations, and builds evidence provenance. The product investigates claims, not people, and never produces a fraud probability.
 
 The interface pairs matte noir with antique bronze and editorial typography. Evidence views stay calm and functional: source records, side-by-side highlighted quotations, analyst review, interactive provenance, Promise Journey, Reality Calculator, condition dependencies, PromiseLab, clarification drafts, receipts, and downloadable dossiers.
@@ -84,7 +88,7 @@ Home → **Four fictional evaluation scenarios** provides internship, scholarshi
 
 Google's [official API documentation](https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api) documents these Gemma models and image inputs. This repository uses the official `google-genai` Python SDK. Source images and rendered PDF pages are sent with source text. Responses are parsed and validated with Pydantic; malformed output gets one bounded repair attempt. Transient provider failures receive bounded backoff and explicit timeouts. No successful response is fabricated.
 
-**Current verification (12 October 2026):** 77 engine/API tests pass, TypeScript checks pass, and the production build passes. Real Chrome interaction checks cover source quotations, PromiseLab, the calculator, graph selection, and mobile layout. See [evaluation](docs/evaluation.md). The live Gemma smoke command was attempted on this host and stopped because `GEMINI_API_KEY` is not configured. No current cloud success or accuracy claim is made. Previously recorded branch notes about READY/Ollama runs are historical and were not reproduced here.
+**Current verification (12 October 2026):** 77 engine/API tests pass, TypeScript checks pass, and the production build passes. The team recorded Chrome checks for quotations, PromiseLab, calculator, graph selection, and mobile layout; see [evaluation](docs/evaluation.md). A real Gemma 4 multimodal run completed at 14:53 IST using `gemma-4-26b-a4b-it`: three fictional PNG sources produced six extracted claims and three PromiseGraph findings. [Recorded model result](docs/live-gemma-internship.json) contains actual extraction rather than authored claims. Image-only quotations remain approximate and require visual review; this single fictional scenario does not establish general accuracy.
 
 ## Ollama local validation
 
@@ -146,10 +150,10 @@ Safe URL fetching, source deletion within an active dossier, authentication, pub
 
 Application and PromiseGraph: MIT ([LICENSE](LICENSE)). Gemma 4 is an open-weight Google model; its licensing is separate from this application. See the [official model card](https://ai.google.dev/gemma/docs/core/model_card_4) and [official Gemma 4 repository/license](https://huggingface.co/google/gemma-4-26B-A4B-it). Dependencies retain their own licenses.
 
-TattvaDrishti inspired multimodal ingestion, batch analysis, source tracing and descriptive pattern analysis. No TattvaDrishti source code or model weights were supplied or copied. This enhancement extends the existing PromiseTrap application on the `promisetrap` branch; the Next.js/FastAPI/SQLite/PromiseGraph architecture and explicit Ollama provider are retained. Contributors: PromiseTrap project team, with Codex-assisted implementation. Record team names and actual development timing before publishing.
+TattvaDrishti inspired multimodal ingestion, batch analysis, source tracing and descriptive pattern analysis. No TattvaDrishti source code or model weights were supplied or copied. This enhancement extends the existing PromiseTrap application; the Next.js/FastAPI/SQLite/PromiseGraph architecture and explicit Ollama provider are retained. Contributors: Shoaib (@shoaib2000857), Omar (@DevXOmar), Jinal (@jinaljpt), and Hansika (@a-hansika). Development used Codex with GPT-6.1 Sol, as disclosed by the team. The team confirmed that the organizer-authorized build window had started.
 
 ## Hackathon readiness
 
-Built for MLH Hacktoberfest Hack Day 2026, Hyderabad, targeting Best Use of Gemma 4 and Best Open-Source AI Project. The team must attest to the organizer-authorized build window and development timing. A local implementation is not proof of submission or eligibility: verify event-specific timing and demonstrate live Gemma multimodal extraction. Verify public access to the connected application branch, capture a real Gemma demo, and complete [the submission draft](docs/submission.md). No repository was published and no entry was submitted by this implementation task.
+Built for MLH Hacktoberfest Hack Day 2026, Hyderabad, targeting Best Use of Gemma 4 and Best Open-Source AI Project. Application code is published in the dedicated public [PromiseTrap repository](https://github.com/shoaib2000857/PromiseTrap) on `main`. The organizer fork is reserved for submission Markdown. [Submission materials](docs/submission.md) include team details, integration evidence, and demo instructions. The frontend is deployed to Vercel; the full workflow runs locally. The final organizer PR and MLH platform entry have not been submitted. Add a demo video before final entry if available.
 
 Future engineering priorities: real-model extraction evaluation, semantic candidate recall, authenticated deployment and worker infrastructure. Contribute via [CONTRIBUTING.md](CONTRIBUTING.md).

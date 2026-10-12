@@ -8,6 +8,7 @@ export type ConditionGroup={evidence_quality?:string;advertisement_comparison?:s
 export type Investigation = {id:string;title:string;description:string;status:string;stage:string;created_at:string;updated_at:string;sources:Source[];claims:Claim[];findings:Finding[];model_identifier:string|null;error_message:string|null;is_example?:boolean;example_mode?:string;claims_provenance?:string;analysis_completed_at?:string;financial?:FinancialSummary;conditions?:ConditionGroup[];journey?:{label:string;note:string;sources:Source[]};history?:{at:string;action:string;model?:string;status?:string}[];clarification_draft?:string};
 export type Summary = Omit<Investigation,'sources'|'claims'|'findings'> & {source_count:number;finding_count:number};
 export async function api<T>(path:string,init?:RequestInit):Promise<T> {
+ if(process.env.NEXT_PUBLIC_FRONTEND_ONLY==='true')throw new Error('This is a frontend preview. Investigations and AI analysis require the Python API. Run the full project locally using the README.');
  const response=await fetch('/api/v1'+path,init);
  if(!response.ok){let message='The request could not be completed.';try{const body=await response.json();message=typeof body.detail==='string'?body.detail:JSON.stringify(body.detail);}catch{}throw new Error(message);}
  if(response.status===204)return undefined as T;

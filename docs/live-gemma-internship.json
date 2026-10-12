@@ -1,0 +1,690 @@
+{
+  "id": "17ec9d37-f0f2-45ae-b5af-4a5914f68aed",
+  "title": "Fictional internship investigation",
+  "description": "Explicit fictional sources. Image mode requires real model analysis; fixtures are authored.",
+  "status": "completed",
+  "stage": "Investigation complete",
+  "created_at": "2026-10-12T09:22:30.810010+00:00",
+  "sources": [
+    {
+      "id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+      "filename": "internship-advertisement.png",
+      "mime_type": "image/png",
+      "sha256": "fa5b30948db1862e8bfb02caa61e225600686575caba4f9974e5549f0519058a",
+      "uploaded_at": "2026-10-12T09:22:30.815027+00:00",
+      "published_at": null,
+      "effective_at": null,
+      "document_stage": "advertisement",
+      "version_group": null,
+      "extracted_text": "",
+      "pages": [],
+      "sequence_index": 0,
+      "extraction_status": "completed",
+      "model_identifier": "gemma-4-26b-a4b-it",
+      "prompt_version": "promisetrap-advanced-v2",
+      "analyzed_at": "2026-10-12T09:22:52.525962+00:00",
+      "extraction_error": null
+    },
+    {
+      "id": "84b3d677-01c6-46a3-b968-c30839d718be",
+      "filename": "internship-registration.png",
+      "mime_type": "image/png",
+      "sha256": "abeeade1c041e87d07819728df9fa77f09447da3cee39c414bf8aaaf82395c76",
+      "uploaded_at": "2026-10-12T09:22:30.818605+00:00",
+      "published_at": null,
+      "effective_at": null,
+      "document_stage": "registration",
+      "version_group": null,
+      "extracted_text": "",
+      "pages": [],
+      "sequence_index": 1,
+      "extraction_status": "completed",
+      "model_identifier": "gemma-4-26b-a4b-it",
+      "prompt_version": "promisetrap-advanced-v2",
+      "analyzed_at": "2026-10-12T09:23:03.578871+00:00",
+      "extraction_error": null
+    },
+    {
+      "id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+      "filename": "internship-offer.png",
+      "mime_type": "image/png",
+      "sha256": "73bb5da77bc30883fdf25e1649818e5645390e0a504cc1b709eb2901006b7a6e",
+      "uploaded_at": "2026-10-12T09:22:30.822635+00:00",
+      "published_at": null,
+      "effective_at": null,
+      "document_stage": "offer",
+      "version_group": null,
+      "extracted_text": "",
+      "pages": [],
+      "sequence_index": 2,
+      "extraction_status": "completed",
+      "model_identifier": "gemma-4-26b-a4b-it",
+      "prompt_version": "promisetrap-advanced-v2",
+      "analyzed_at": "2026-10-12T09:23:23.615571+00:00",
+      "extraction_error": null
+    }
+  ],
+  "claims": [
+    {
+      "id": "2944c8dd0d84834bc2cf6083",
+      "source_id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+      "category": "financial",
+      "subject": "registration",
+      "predicate": "required_fee",
+      "value": 0.0,
+      "currency": null,
+      "unit": null,
+      "modality": "required",
+      "conditions": [],
+      "audience": "unspecified",
+      "stage": "registration",
+      "effective_at": null,
+      "original_text": "Registration is completely free.",
+      "normalized_summary": "Registration is free.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "exact",
+      "financial_role": "fee",
+      "payment_timing": null,
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "99b700703181bee573a6ca7e",
+      "source_id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+      "category": "compensation",
+      "subject": "internship",
+      "predicate": "compensation",
+      "value": "20000",
+      "currency": "INR",
+      "unit": "month",
+      "modality": "guaranteed",
+      "conditions": [],
+      "audience": "unspecified",
+      "stage": "unspecified",
+      "effective_at": null,
+      "original_text": "Guaranteed stipend INR 20,000 per month.",
+      "normalized_summary": "Guaranteed stipend of INR 20,000 per month.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "exact",
+      "financial_role": "compensation",
+      "payment_timing": "month",
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "62198ac87095a584ffe3154f",
+      "source_id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+      "category": "certification",
+      "subject": "participation",
+      "predicate": "certification",
+      "value": null,
+      "currency": null,
+      "unit": null,
+      "modality": "guaranteed",
+      "conditions": [],
+      "audience": "all registered applicants",
+      "stage": "unspecified",
+      "effective_at": null,
+      "original_text": "Certificate guaranteed to all registered applicants.",
+      "normalized_summary": "Certificate guaranteed to all registered applicants.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "unspecified",
+      "financial_role": null,
+      "payment_timing": null,
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "a4a0299f192c4f6002b22d41",
+      "source_id": "84b3d677-01c6-46a3-b968-c30839d718be",
+      "category": "financial",
+      "subject": "registration",
+      "predicate": "required_fee",
+      "value": "499",
+      "currency": "INR",
+      "unit": null,
+      "modality": "required",
+      "conditions": [],
+      "audience": "all registered applicants",
+      "stage": "registration",
+      "effective_at": null,
+      "original_text": "A mandatory processing fee of INR 499 is due upfront for registration.",
+      "normalized_summary": "A mandatory INR 499 processing fee is due upfront for registration.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "exact",
+      "financial_role": "fee",
+      "payment_timing": "upfront",
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "3f16d0c5d84615b8a4ae7780",
+      "source_id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+      "category": "compensation",
+      "subject": "internship",
+      "predicate": "compensation",
+      "value": "20000",
+      "currency": "INR",
+      "unit": "month",
+      "modality": "conditional",
+      "conditions": [
+        "subject to performance evaluation"
+      ],
+      "audience": "all registered applicants",
+      "stage": "internship",
+      "effective_at": null,
+      "original_text": "Stipend up to INR 20,000 per month, subject to performance evaluation.",
+      "normalized_summary": "Stipend up to INR 20,000 per month subject to performance evaluation.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "maximum",
+      "financial_role": "compensation",
+      "payment_timing": null,
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "8f43bbf866331a1db6c28eee",
+      "source_id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+      "category": "certification",
+      "subject": "participation",
+      "predicate": "certification",
+      "value": null,
+      "currency": null,
+      "unit": null,
+      "modality": "conditional",
+      "conditions": [
+        "successful evaluation",
+        "80% attendance"
+      ],
+      "audience": "all registered applicants",
+      "stage": "internship",
+      "effective_at": null,
+      "original_text": "Certificates issued only after successful evaluation and 80% attendance.",
+      "normalized_summary": "Certificates issued only after successful evaluation and 80% attendance.",
+      "page_number": null,
+      "text_start": null,
+      "text_end": null,
+      "location_quality": "approximate",
+      "uncertainty_note": null,
+      "scope": {
+        "program": "Nova 2026 program",
+        "audience": "all registered applicants",
+        "purpose": null,
+        "period": "2026 intake",
+        "application_stage": null,
+        "contractual_condition": null,
+        "qualifying_event": "registration"
+      },
+      "value_kind": "unspecified",
+      "financial_role": null,
+      "payment_timing": null,
+      "refund_terms": null,
+      "refundable": null,
+      "applicable_cost": null,
+      "criteria": [],
+      "review_status": "unreviewed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "41631e5e28836feeaa0b09e3",
+      "claim_a_id": "2944c8dd0d84834bc2cf6083",
+      "claim_b_id": "a4a0299f192c4f6002b22d41",
+      "category": "financial",
+      "status": "insufficient_evidence",
+      "severity": "medium",
+      "title": "Fee: semantic ambiguity",
+      "pattern": "semantic_ambiguity",
+      "explanation": "No decisive deterministic rule applies. Semantic equivalence or missing numerical qualifiers requires review. Image-derived wording requires visual verification against the original.",
+      "validation_method": "rule",
+      "evidence_verified": false,
+      "limitations": [
+        "The documented subjects, attributes and known scope dimensions match.",
+        "purpose is not established in both claims.",
+        "application stage is not established in both claims.",
+        "contractual condition is not established in both claims."
+      ],
+      "review_status": "unreviewed",
+      "review_notes": "",
+      "scope": {
+        "comparable": true,
+        "certain": false,
+        "reasons": [
+          "The documented subjects, attributes and known scope dimensions match."
+        ],
+        "unknowns": [
+          "purpose is not established in both claims.",
+          "application stage is not established in both claims.",
+          "contractual condition is not established in both claims."
+        ]
+      },
+      "alternative": null,
+      "semantic_review": null
+    },
+    {
+      "id": "4c186d4e144369bc1abac98d",
+      "claim_a_id": "99b700703181bee573a6ca7e",
+      "claim_b_id": "3f16d0c5d84615b8a4ae7780",
+      "category": "compensation",
+      "status": "potential_conflict",
+      "severity": "medium",
+      "title": "Compensation: guarantee qualified",
+      "pattern": "guarantee_qualified",
+      "explanation": "An unconditional guarantee is qualified or restricted by the other comparable statement. Confirm whether both terms apply together. Scope or extraction uncertainty prevents a definitive contradiction. Image-derived wording requires visual verification against the original.",
+      "validation_method": "rule",
+      "evidence_verified": false,
+      "limitations": [
+        "The documented subjects, attributes and known scope dimensions match.",
+        "purpose is not established in both claims.",
+        "application stage is not established in both claims.",
+        "contractual condition is not established in both claims."
+      ],
+      "review_status": "unreviewed",
+      "review_notes": "",
+      "scope": {
+        "comparable": true,
+        "certain": false,
+        "reasons": [
+          "The documented subjects, attributes and known scope dimensions match."
+        ],
+        "unknowns": [
+          "purpose is not established in both claims.",
+          "application stage is not established in both claims.",
+          "contractual condition is not established in both claims."
+        ]
+      },
+      "alternative": null,
+      "semantic_review": null
+    },
+    {
+      "id": "c61f77afeafea6c2aa42d89a",
+      "claim_a_id": "62198ac87095a584ffe3154f",
+      "claim_b_id": "8f43bbf866331a1db6c28eee",
+      "category": "certification",
+      "status": "potential_conflict",
+      "severity": "medium",
+      "title": "Certificate: guarantee qualified",
+      "pattern": "guarantee_qualified",
+      "explanation": "An unconditional guarantee is qualified or restricted by the other comparable statement. Confirm whether both terms apply together. Scope or extraction uncertainty prevents a definitive contradiction. Image-derived wording requires visual verification against the original.",
+      "validation_method": "rule",
+      "evidence_verified": false,
+      "limitations": [
+        "The documented subjects, attributes and known scope dimensions match.",
+        "purpose is not established in both claims.",
+        "application stage is not established in both claims.",
+        "contractual condition is not established in both claims."
+      ],
+      "review_status": "unreviewed",
+      "review_notes": "",
+      "scope": {
+        "comparable": true,
+        "certain": false,
+        "reasons": [
+          "The documented subjects, attributes and known scope dimensions match."
+        ],
+        "unknowns": [
+          "purpose is not established in both claims.",
+          "application stage is not established in both claims.",
+          "contractual condition is not established in both claims."
+        ]
+      },
+      "alternative": null,
+      "semantic_review": null
+    }
+  ],
+  "model_identifier": "gemma-4-26b-a4b-it",
+  "error_message": null,
+  "updated_at": "2026-10-12T09:23:23.627407+00:00",
+  "is_example": true,
+  "example_mode": "fictional_images",
+  "claims_provenance": "model:gemma-4-26b-a4b-it",
+  "analysis_started_at": "2026-10-12T09:22:30.832294+00:00",
+  "analysis_provider": "gemma",
+  "analysis_completed_at": "2026-10-12T09:23:23.627391+00:00",
+  "history": [
+    {
+      "at": "2026-10-12T09:23:23.627403+00:00",
+      "action": "analysis",
+      "model": "gemma-4-26b-a4b-it",
+      "provider": "gemma"
+    }
+  ],
+  "financial": {
+    "currencies": {
+      "INR": {
+        "mandatory_upfront_cost": "499",
+        "optional_fees": "0",
+        "deposits": "0",
+        "fixed_deductions": "0",
+        "guaranteed_compensation": [],
+        "conditional_compensation": [
+          {
+            "amount": "20000",
+            "unit": "month",
+            "claim_id": "3f16d0c5d84615b8a4ae7780",
+            "conditions": [
+              "subject to performance evaluation"
+            ]
+          }
+        ],
+        "potential_compensation": [
+          {
+            "amount": "20000",
+            "unit": "month",
+            "claim_id": "99b700703181bee573a6ca7e",
+            "conditions": []
+          }
+        ],
+        "claim_ids": [
+          "99b700703181bee573a6ca7e",
+          "3f16d0c5d84615b8a4ae7780",
+          "a4a0299f192c4f6002b22d41"
+        ]
+      }
+    },
+    "values": [
+      {
+        "claim_id": "2944c8dd0d84834bc2cf6083",
+        "source_id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+        "role": "fee",
+        "amount": "0.0",
+        "currency": null,
+        "unit": "one_time",
+        "modality": "mandatory",
+        "value_kind": "exact",
+        "conditions": [],
+        "payment_timing": null,
+        "refund_terms": null,
+        "evidence_quality": "approximate"
+      },
+      {
+        "claim_id": "99b700703181bee573a6ca7e",
+        "source_id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+        "role": "compensation",
+        "amount": "20000",
+        "currency": "INR",
+        "unit": "month",
+        "modality": "guaranteed",
+        "value_kind": "exact",
+        "conditions": [],
+        "payment_timing": "month",
+        "refund_terms": null,
+        "evidence_quality": "approximate"
+      },
+      {
+        "claim_id": "a4a0299f192c4f6002b22d41",
+        "source_id": "84b3d677-01c6-46a3-b968-c30839d718be",
+        "role": "fee",
+        "amount": "499",
+        "currency": "INR",
+        "unit": "one_time",
+        "modality": "mandatory",
+        "value_kind": "exact",
+        "conditions": [],
+        "payment_timing": "upfront",
+        "refund_terms": null,
+        "evidence_quality": "approximate"
+      },
+      {
+        "claim_id": "3f16d0c5d84615b8a4ae7780",
+        "source_id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+        "role": "compensation",
+        "amount": "20000",
+        "currency": "INR",
+        "unit": "month",
+        "modality": "conditional",
+        "value_kind": "maximum",
+        "conditions": [
+          "subject to performance evaluation"
+        ],
+        "payment_timing": null,
+        "refund_terms": null,
+        "evidence_quality": "approximate"
+      }
+    ],
+    "uncertainties": [
+      "Some extracted values require source review; totals are provisional until confirmed.",
+      "The advertised guarantee for internship is qualified elsewhere; guaranteed payment is not established."
+    ],
+    "refund_policy": "Unknown — no refund terms provided.",
+    "method": "Decimal arithmetic; duplicate obligations grouped by scope, purpose, currency and unit. Conflicting costs excluded. No currency conversion, tax estimate, duration multiplication or assumed refundability."
+  },
+  "conditions": [
+    {
+      "benefit": "Stipend up to INR 20,000 per month subject to performance evaluation.",
+      "claim_id": "3f16d0c5d84615b8a4ae7780",
+      "evidence_quality": "approximate",
+      "advertisement_comparison": "available",
+      "conditions": [
+        {
+          "text": "subject to performance evaluation",
+          "claim_id": "3f16d0c5d84615b8a4ae7780",
+          "required": true,
+          "not_in_advertisement": true
+        }
+      ],
+      "ordering": "Requirements feed into the benefit; their sequence is not established."
+    },
+    {
+      "benefit": "Certificates issued only after successful evaluation and 80% attendance.",
+      "claim_id": "8f43bbf866331a1db6c28eee",
+      "evidence_quality": "approximate",
+      "advertisement_comparison": "available",
+      "conditions": [
+        {
+          "text": "successful evaluation",
+          "claim_id": "8f43bbf866331a1db6c28eee",
+          "required": true,
+          "not_in_advertisement": true
+        },
+        {
+          "text": "80% attendance",
+          "claim_id": "8f43bbf866331a1db6c28eee",
+          "required": true,
+          "not_in_advertisement": true
+        }
+      ],
+      "ordering": "Requirements feed into the benefit; their sequence is not established."
+    }
+  ],
+  "receipt": {
+    "investigation_id": "17ec9d37-f0f2-45ae-b5af-4a5914f68aed",
+    "sources": [
+      {
+        "id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+        "filename": "internship-advertisement.png",
+        "mime_type": "image/png",
+        "sha256": "fa5b30948db1862e8bfb02caa61e225600686575caba4f9974e5549f0519058a",
+        "uploaded_at": "2026-10-12T09:22:30.815027+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "advertisement",
+        "version_group": null,
+        "sequence_index": 0,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:22:52.525962+00:00",
+        "extraction_error": null
+      },
+      {
+        "id": "84b3d677-01c6-46a3-b968-c30839d718be",
+        "filename": "internship-registration.png",
+        "mime_type": "image/png",
+        "sha256": "abeeade1c041e87d07819728df9fa77f09447da3cee39c414bf8aaaf82395c76",
+        "uploaded_at": "2026-10-12T09:22:30.818605+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "registration",
+        "version_group": null,
+        "sequence_index": 1,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:23:03.578871+00:00",
+        "extraction_error": null
+      },
+      {
+        "id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+        "filename": "internship-offer.png",
+        "mime_type": "image/png",
+        "sha256": "73bb5da77bc30883fdf25e1649818e5645390e0a504cc1b709eb2901006b7a6e",
+        "uploaded_at": "2026-10-12T09:22:30.822635+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "offer",
+        "version_group": null,
+        "sequence_index": 2,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:23:23.615571+00:00",
+        "extraction_error": null
+      }
+    ],
+    "notice": "SHA-256 compares recorded bytes only. It does not prove origin, authorship or historical authenticity."
+  },
+  "journey": {
+    "label": "Document Sequence",
+    "note": "Grouped by application stage; upload order does not establish chronology.",
+    "sources": [
+      {
+        "id": "756fb238-7b04-4635-826d-d98c1ffa3e15",
+        "filename": "internship-advertisement.png",
+        "mime_type": "image/png",
+        "sha256": "fa5b30948db1862e8bfb02caa61e225600686575caba4f9974e5549f0519058a",
+        "uploaded_at": "2026-10-12T09:22:30.815027+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "advertisement",
+        "version_group": null,
+        "extracted_text": "",
+        "pages": [],
+        "sequence_index": 0,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:22:52.525962+00:00",
+        "extraction_error": null
+      },
+      {
+        "id": "84b3d677-01c6-46a3-b968-c30839d718be",
+        "filename": "internship-registration.png",
+        "mime_type": "image/png",
+        "sha256": "abeeade1c041e87d07819728df9fa77f09447da3cee39c414bf8aaaf82395c76",
+        "uploaded_at": "2026-10-12T09:22:30.818605+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "registration",
+        "version_group": null,
+        "extracted_text": "",
+        "pages": [],
+        "sequence_index": 1,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:23:03.578871+00:00",
+        "extraction_error": null
+      },
+      {
+        "id": "810e527a-9b06-4b3d-b89a-864be7a19255",
+        "filename": "internship-offer.png",
+        "mime_type": "image/png",
+        "sha256": "73bb5da77bc30883fdf25e1649818e5645390e0a504cc1b709eb2901006b7a6e",
+        "uploaded_at": "2026-10-12T09:22:30.822635+00:00",
+        "published_at": null,
+        "effective_at": null,
+        "document_stage": "offer",
+        "version_group": null,
+        "extracted_text": "",
+        "pages": [],
+        "sequence_index": 2,
+        "extraction_status": "completed",
+        "model_identifier": "gemma-4-26b-a4b-it",
+        "prompt_version": "promisetrap-advanced-v2",
+        "analyzed_at": "2026-10-12T09:23:23.615571+00:00",
+        "extraction_error": null
+      }
+    ]
+  }
+}

@@ -144,3 +144,8 @@ Best Open-Source AI: original deterministic modules, reproducible setup/tests, M
 - `scripts/evaluate_fixtures.py`
 - `scripts/generate_samples.py`
 - `scripts/validate_gemma.py`
+
+
+## Publication update - 12 October 2026
+
+The application now lives in the dedicated public PromiseTrap repository on main. The Vercel deployment is a frontend preview. A real Gemma 4 image run completed at 14:53 IST: three fictional PNG sources, six extracted claims, and three PromiseGraph findings. See [actual model result](live-gemma-internship.json); image-only quotations require review. The missing-key observations above describe the earlier enhancement host. Final organizer PR and MLH entry remain unsubmitted.

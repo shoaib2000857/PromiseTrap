@@ -1,45 +1,68 @@
-# Submission preparation — not submitted
+# PromiseTrap submission materials
 
-Project: **PromiseTrap**  
-Tagline: **Every promise deserves evidence.**  
-Tracks: Best Use of Gemma 4; Best Open-Source AI Project
+Status: prepared; final organizer PR and MLH entry have not been submitted.
 
-## Description draft
+## Name and pitch
 
-PromiseTrap is a multimodal evidence workspace for investigating differences between advertisements and the terms behind them. It preserves original sources, uses Gemma 4 for structured claim extraction and semantic review, and runs an original open-source PromiseGraph engine for scope-aware comparisons, quote validation, drift detection, and provenance. Users inspect side-by-side evidence, review findings, explore claim graphs and export an investigation dossier. It investigates claims without accusing people or producing unsupported scam probabilities.
+**PromiseTrap - Every promise deserves evidence.**
 
-## Original contribution
+Investigate the gap between promises and fine print with multimodal AI, traceable evidence, and an original open-source comparison engine.
 
-Independently installable PromiseGraph package: claim normalization, indexed comparable-pair matching, scope/condition checks, numeric/guarantee discrepancies, dated-version classification, quotation verification, and evidence graph construction. Custom editorial frontend and end-to-end local ingestion, persistent analysis, review and reporting.
+## Team
 
-## Gemma evidence to attach
+- Shoaib: https://github.com/shoaib2000857
+- Omar: https://github.com/DevXOmar
+- Jinal: https://github.com/jinaljpt
+- Hansika: https://github.com/a-hansika
 
-- Actual model identifier and analysis timestamp from a successful live run.
-- Screenshot/video of image evidence being ingested and structured claims extracted.
-- Real side-by-side sourced result; explain image-only localization limitations.
-- SDK adapter path: `apps/api/app/gemma.py`.
+The team confirmed that the organizer-authorized build window had started. Development was assisted by Codex with GPT-6.1 Sol, as disclosed by the team.
 
-## Open-source evidence to attach
+## Links
 
-- Application branch URL: https://github.com/shoaib2000857/Hacktoberfest-2026-NIAT-KKH/tree/promisetrap — verify public visibility and the published enhancement commit before entry.
-- MIT license at repository root and documented separate model terms.
-- Package source, negative-case tests, reproducible setup and real working demo.
-- Explain TattvaDrishti inspiration; no supplied TattvaDrishti code was copied.
+- Public application: https://github.com/shoaib2000857/PromiseTrap
+- MIT license: https://github.com/shoaib2000857/PromiseTrap/blob/main/LICENSE
+- Frontend preview: https://promisetrap.vercel.app (frontend only; full investigations run locally)
+- Screenshots: https://github.com/shoaib2000857/PromiseTrap/tree/main/docs/screenshots
+- Original engine: https://github.com/shoaib2000857/PromiseTrap/tree/main/packages/promisegraph
+- Live Gemma result: https://github.com/shoaib2000857/PromiseTrap/blob/main/docs/live-gemma-internship.json
+- Demo video: not yet supplied; the team will add it.
 
-## Submission blockers
+## Description
 
-Live multimodal model verification, confirmed public release links, team names, demo recording/link, and final event-template completion. Browser screenshots and local validation are now recorded; record actual development timing honestly and confirm organizer-specific eligibility. No entry has been submitted.
+Advertisements, registration forms, and offer letters often describe the same opportunity differently. PromiseTrap helps students, applicants, and consumers inspect those differences before committing money or time.
 
-Official platform: https://www.mlh.com/events/hacktoberfest-hack-day-hyderabad-x-niat/submissions/new  
-Organizer repository: https://github.com/niat-KKH/Hacktoberfest-2026-NIAT-KKH
+Upload original images, screenshots, PDFs, emails, or text. Gemma 4 extracts structured promises and conditions. Our original PromiseGraph engine normalizes monetary values, checks scope and optional services, compares claims, verifies quotations, and traces each finding to its evidence.
 
-The organizer PR and MLH platform entry are separate. Copy their current `SUBMISSION_TEMPLATE.md` before submitting. Only publish or submit after explicit user authorization.
+The investigation workspace offers side-by-side quotations, interactive evidence graphs, Promise Journey timelines, a Reality Calculator separating guaranteed and conditional compensation, condition dependencies, and analyst review. PromiseLab reruns comparisons against hypothetical structured changes without changing original evidence. Clarification drafts and hashed receipts support follow-up; dossiers export as PDF, Markdown, and JSON.
 
+Findings investigate claims rather than people. Image-only quotations require visual review. Synthetic examples disclose authored extraction, and actual provider runs carry distinct provenance. An explicit Ollama option supports local inference without silently replacing Gemma 4.
 
-## Enhancement release evidence
+## Technologies
 
-- See [release report](release-report.md), [evaluation](evaluation.md), [recorded offline fixture results](evaluation-results.json), [demo script](demo-script.md) and [screenshots](screenshots/).
-- Original modules: `packages/promisegraph/src/promisegraph/advanced/`, with API compatibility bridge `extensions.py`. ScopeGuard, financial calculations and isolated simulations operate without model credentials.
-- Dedicated real multimodal validation: `scripts/validate_gemma.py`; current host has no configured key. Authored/mocked tests cannot establish the Gemma prize requirement.
-- Organizer main branch contains submission records; the application remains on the team's separate application branch. Do not merge application code into the organizer submission repository. The organizer PR and MLH form are separate operations and neither has been submitted here.
-- Intent is to target both categories. Confirm whether simultaneous category entry is allowed, official build window/deadline, exact current MLH form and demo timing with organizers. Markdown challenge links were checked against the actual `Gemma_4_Challenge.pdf`, `Open_Source_AI_Challenge.pdf` and `Submission_Guide.pdf`; the guide includes an older platform URL, so do not assume it is the current form.
+Gemma 4 (gemma-4-26b-a4b-it), Gemini API, Google GenAI Python SDK, Ollama (gemma3:4b by default), Python, FastAPI, Pydantic, SQLite, Next.js, React, TypeScript, React Flow, Lucide, PyMuPDF, Pillow, ReportLab, pytest, and Vercel (frontend).
+
+Runtime AI: Gemma and Ollama. Gemini API is the transport for the Gemma model; this application does not silently substitute a Gemini model.
+
+AI coding tool: Codex. Coding model disclosed by the team: GPT-6.1 Sol.
+
+## Category answers
+
+### Best Use of Gemma 4
+
+PromiseTrap uses gemma-4-26b-a4b-it through the Gemini API for structured extraction from text, images, and rendered PDF pages, and for bounded semantic review of ambiguous comparisons. A real run on 12 October 2026 at 14:53 IST processed three fictional PNG sources, extracted six claims, and produced three PromiseGraph findings; the actual result is published with image-evidence limitations.
+
+### Best Open-Source AI Project
+
+PromiseTrap combines open-weight AI with our original MIT-licensed PromiseGraph engine for scope-aware claim comparison, financial calculations, quotation verification, and provenance. The reusable engine runs independently of model credentials, and an explicit Ollama provider enables local inference.
+
+## Validation and demo
+
+77 engine/API tests passed after the enhancement pull. TypeScript checks and production builds passed. The recorded Gemma image run is actual provider extraction from fictional sources, not authored claims; it is one scenario and does not establish general accuracy. Image-only evidence remains approximate and needs review.
+
+Follow the README to run the Python API and frontend locally. Use the real image scenario and [demo script](demo-script.md) for a full walkthrough. The Vercel link is a frontend preview only. TattvaDrishti inspired ingestion, batch analysis, source tracing, and descriptive pattern analysis; no supplied source code or weights were copied.
+
+## Remaining submission actions
+
+Add the team's demo video if available. Open the prepared submission-only branch as a PR to the organizer repository when ready; maintainers handle its merge. One team member must also submit the separate MLH platform form: https://www.mlh.com/events/hacktoberfest-hack-day-hyderabad-x-niat/submissions/new.
+
+Announced form deadline: 13 October 2026, 7:30 PM IST. Final eligibility is determined by the organizers.
