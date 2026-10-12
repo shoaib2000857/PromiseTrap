@@ -25,7 +25,7 @@ export default function Page(){
  const fileRef=useRef<HTMLInputElement>(null);
  const [provider,setProvider]=useState<'gemma'|'ollama'>('ollama'),[localModel,setLocalModel]=useState('gemma3:4b');
  async function refresh(){try{setCases(await api<Summary[]>('/investigations'));setHealth(await api('/health'));}catch{setHealth(null);}}
- useEffect(()=>{refresh();},[]);
+ useEffect(()=>{refresh();const params=new URLSearchParams(window.location.search);const id=params.get('investigation');if(id&&/^[0-9a-f-]{36}$/i.test(id)){open(id);if(params.get('provider')==='gemma')setProvider('gemma');}},[]);
  useEffect(()=>{if(!notice)return;const t=setTimeout(()=>setNotice(''),5000);return()=>clearTimeout(t);},[notice]);
  useEffect(()=>{const close=(e:KeyboardEvent)=>{if(e.key==='Escape'){setModal(null);setSelected(null);setPreview(null);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close);},[]);
  useEffect(()=>{if(caseData?.status!=='processing')return;const timer=setInterval(async()=>{try{const updated=await api<Investigation>('/investigations/'+caseData.id);setCase(updated);if(updated.status!=='processing'){refresh();setNotice(updated.status==='failed'?'Analysis failed. See details in the workspace.':'Analysis finished. Evidence is ready to review.');}}catch(e){setError((e as Error).message);}},2000);return()=>clearInterval(timer);},[caseData?.id,caseData?.status]);
